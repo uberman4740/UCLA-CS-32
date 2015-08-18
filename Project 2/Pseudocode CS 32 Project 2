@@ -1,0 +1,132 @@
+bool Sequence::insert(int pos, const ItemType& value)
+{
+	if pos is bigger than size or negative, return false
+	else if pos is within 0 and size but not equal to size
+		create a pointer pointing to head->m_next
+		Loop through from i = 0 to i < m_size
+			if i == pos
+				create a newguy node
+				newguy gets value and is connected forward to p and backward to what was behind it,
+				and p is connected to newguy and what was behing p is connected to newguy
+				size increases and we return true
+			move p forward in unison with iterator i
+		else if pos is the size
+			create a pointer pointing to the end
+			create a newguy node
+			newguy gets value and is connected forward to the sentinel node and is connected backward 
+			to what was the original end and the original end is connected forward to the newguy and 
+			the sentinel is connected backward to the newguy
+			size increases and we return true
+	returns true
+}
+bool Sequence::insert(const ItemType& value)
+{
+	if the size is 0
+		create a newguy node
+		newguy gets value and is connected forward to the sentinel node and is connected backward 
+		to what was the original end and the original end is connected forward to the newguy and 
+		the sentinel is connected backward to the newguy
+		size increases and we return true
+	create a temporary position variable and a pointer pointing to the sentinel node
+	Loop through from i = 0 to i < m_size
+		move pointer forward, in unison with iterator i
+		if the value at position is greater than parameter value
+			set position to i and break
+		else 
+			set position to size
+	use insert(int pos, const ItemType& value) with our newly defined position
+	always return true
+}
+
+bool Sequence::erase(int pos)
+{
+	if the position is valid (non negative and within th size)
+		create a pointer pointing to head (p)
+		Loop through from i = 0 to i < m_size
+			move pointer forward, in unison with iterator i
+			if i == pos
+				create a deleter pointer that points to the current value (given by p)
+				connect what lies behind p to whats infront of p
+				connect what lies in fron of p to whats behind p
+				delete the deleter, decrease the size and return true
+	return false
+}
+
+int Sequence::remove(const ItemType& value) 
+{
+		if the position is valid (non negative and within th size)
+		create a pointer pointing to head (p), and a removed counter
+		Loop through from i = 0 to i < m_size
+			move pointer forward, in unison with iterator i
+			if i == pos
+				create a deleter pointer that points to the current value (given by p)
+				connect what lies behind p to whats infront of p
+				connect what lies in fron of p to whats behind p
+				delete the deleter, decrease the size and increment the removed counter
+	return removed counter
+}
+
+void Sequence::swap(Sequence& other)
+{
+	create a temporary head pointer pointing to the others head
+	make others head point to head
+	make head point to the temporary head
+
+	make a temporary size equal to others size
+	make others size equal to m_size
+	make m_size equal to the temporary size
+}
+Sequence::~Sequence()
+{
+	while the sentinels previous pointer doesnt point to itself (i.e dont delete the sentinel)
+		create a deleter pointing to the end
+		connect whats behind the current end to the sentinel
+		connect the sentinel with whats behind the current end
+		delete deleter pointer
+}
+Sequence::Sequence(const Sequence& other)
+{
+	set m_size to others size
+	create a new head pointer and make it point to itself, making it the sentinel
+	create a pointer (p) pointing to others head and loop through while its not equal to head
+		create a new adder node
+		adder gets p's value 
+		connect adder forward to the sentinel
+		connect adder backward to what initially lay there
+		connect what initally lay there forward to adder
+		connect the sentinel backward to adder
+		move p forward
+}
+int subsequence(const Sequence& seq1, const Sequence& seq2)
+{
+	if seq2 is empty or bigger than seq1 then return -1
+	create local variables to store values from the sequences, the startposition and a boolean whether it is a sequence or not
+	Loop through seq1
+		store values at from respective positions into our two local variables using the get method
+		if the first element in seq2 is equal to the ith element in seq1
+			startpoint becomes i, and we loop through seq2 while simultaneously looping through seq1
+				store values at from respective positions into our two local variables using the get method
+				if these variables aren't equal 
+					it isnt a subsequence, set isSequence to false and break
+			if after looping, there wasnt a break, isSequence is still true
+				return startpoint
+	return -1
+}
+
+void interleave(const Sequence& seq1, const Sequence& seq2, Sequence& result)
+{
+	if result isnt empty 
+		erase everything currently in it
+	if either seq1 or seq2 is empty 
+		make result equal to the non empty sequence
+	if seq1 and seq2 arent the same thing
+		loop through both sequences until both end
+			if our iterator for seq1 is less than seq1 size
+				store the value at that position in result
+				increment the iterator for seq1 and result
+			if our iterator for seq2 is less than seq2 size
+				store the value at that position in result
+				increment the iterator for seq2 and result
+	else if we have aliasing
+		make result equal to either seq1 or seq2
+}
